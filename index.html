@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的小小世界</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <main>
+        <nav class="navbar">
+            <a class="logo" href="#">我的小小世界.</a>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#articles">文章</a>
+                <a href="#about">关于</a>
+                <button id="theme-toggle" type="button" aria-label="切换深色模式">
+    🌙 深色模式
+</button>
+            </div>
+        </nav>
+
+        <header id="home" class="hero">
+            <p class="date">MY PERSONAL BLOG</p>
+            <h1>记录生活，记录成长。</h1>
+            <p>这里收藏我的日常、思考、灵感，以及正在成为的自己。</p>
+        </header>
+
+        <h1>欢迎来到我的小小世界！</h1>
+        <p>我会在这里记录生活、学习和成长。</p>
+
+        
+        <section class="search-area">
+            <label for="article-search">搜索文章</label>
+            <input
+                type="search"
+                id="article-search"
+                placeholder="试试搜索：生活、学习、成长..."
+            >
+            <p id="search-status" aria-live="polite"></p>
+        </section>
+
+        <section class="category-area" aria-label="文章分类">
+            <button class="category-btn active" data-category="全部">
+                全部
+            </button>
+            <button class="category-btn" data-category="生活">
+                生活
+            </button>
+            <button class="category-btn" data-category="随笔">
+                随笔
+            </button>
+            <button class="category-btn" data-category="关于">
+                关于
+            </button>
+        </section>
+
+<!-- 第一篇：随笔 -->
+<article class="card" id="articles" data-category="随笔">
+    <img
+        class="cover"
+        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000"
+        alt="宁静的自然风景"
+    >
+    <p class="date">2026年10月26日 · 随笔</p>
+    <h2>我的第一篇文章</h2>
+    <p>今天，我开始学习制作网站了。</p>
+    <p>希望在这里，记录每一次小小的进步。</p>
+    <a class="read-more" href="article.html">阅读全文 →</a>
+</article>
+
+        <!-- 第二篇：生活 -->
+<article class="card" data-category="生活">
+            <p class="date">2026年10月25日 · 大学生活</p>
+            <h2>大学生活的第一份记录</h2>
+            <p>新的环境，新的朋友，还有许多等待探索的事情。</p>
+            <a class="read-more" href="article2.html">阅读全文 →</a>
+        </article>
+
+
+        <!-- 第三篇：关于 -->
+<article class="card" id="about" data-category="关于">
+            <p class="date">生活记录 · 01</p>
+            <h2>关于这个博客</h2>
+            <p>这里收藏我的日常、思考、灵感，以及正在成为的自己。</p>
+        </article>
+    </main>
+    
+    <footer>
+        <p>我的小小世界 · 记录生活，记录成长。</p>
+        <p>用心记录每一个平凡的日子。</p>
+    </footer>
+
+    
+    <script>
+        const searchInput =
+            document.getElementById("article-search");
+
+        const searchStatus =
+            document.getElementById("search-status");
+
+        const articles = Array.from(
+            document.querySelectorAll("main > article.card")
+        );
+
+        const categoryButtons = Array.from(
+            document.querySelectorAll(".category-btn")
+        );
+
+        let currentCategory = "全部";
+
+        function filterArticles() {
+            const keyword =
+                searchInput.value.trim().toLowerCase();
+
+            let visibleCount = 0;
+
+            articles.forEach(function (article) {
+                const text =
+                    article.textContent.toLowerCase();
+
+                const category =
+                    article.dataset.category;
+
+                const matchesKeyword =
+                    text.includes(keyword);
+
+                const matchesCategory =
+                    currentCategory === "全部" ||
+                    category === currentCategory;
+
+                const visible =
+                    matchesKeyword && matchesCategory;
+
+                article.hidden = !visible;
+
+                if (visible) {
+                    visibleCount++;
+                }
+            });
+
+            if (keyword === "" &&
+                currentCategory === "全部") {
+                searchStatus.textContent = "";
+            } else if (visibleCount === 0) {
+                searchStatus.textContent =
+                    "没有找到相关文章，试试其他条件。";
+            } else {
+                searchStatus.textContent =
+                    "找到 " + visibleCount + " 篇相关文章。";
+            }
+        }
+
+        searchInput.addEventListener(
+            "input",
+            filterArticles
+        );
+
+        categoryButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                currentCategory =
+                    button.dataset.category;
+
+                categoryButtons.forEach(function (item) {
+                    item.classList.toggle(
+                        "active",
+                        item === button
+                    );
+                });
+
+                filterArticles();
+            });
+        });
+    </script>
+    
+    <script>
+        const themeToggle =
+            document.getElementById("theme-toggle");
+
+        const savedTheme =
+            localStorage.getItem("blog-theme");
+
+        if (savedTheme === "dark") {
+            document.documentElement.dataset.theme = "dark";
+            themeToggle.textContent = "☀️ 浅色模式";
+        }
+
+        themeToggle.addEventListener("click", function () {
+            const isDark =
+                document.documentElement.dataset.theme === "dark";
+
+            if (isDark) {
+                document.documentElement.dataset.theme = "light";
+                themeToggle.textContent = "🌙 深色模式";
+                localStorage.setItem("blog-theme", "light");
+            } else {
+                document.documentElement.dataset.theme = "dark";
+                themeToggle.textContent = "☀️ 浅色模式";
+                localStorage.setItem("blog-theme", "dark");
+            }
+        });
+    </script>
+</body>
+
+</body>
+</html>
+
+</body>
+
+</body>
+</html>
+
+</html>
