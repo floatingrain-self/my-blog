@@ -322,3 +322,102 @@ body,
         margin-top: 4px;
     }
 }
+
+/* ===== 首页视觉美化：第一轮 ===== */
+
+/* 让整个页面的文字更舒展 */
+body {
+  letter-spacing: 0.2px;
+}
+
+/* 首页主标题区域 */
+.hero {
+  padding-top: 52px;
+  padding-bottom: 42px;
+}
+
+.hero h1 {
+  line-height: 1.25;
+  letter-spacing: -1px;
+}
+
+.hero p {
+  line-height: 1.9;
+  max-width: 680px;
+}
+
+/* 欢迎区域 */
+.welcome {
+  padding-top: 18px;
+  padding-bottom: 28px;
+}
+
+.welcome h2 {
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.welcome p {
+  line-height: 1.9;
+}
+
+/* 搜索和分类区域 */
+.search-area {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.category-area {
+  margin-bottom: 30px;
+}
+
+/* 文章卡片：更轻盈的边框与阴影 */
+.card {
+  border: 1px solid #e8e0d3;
+  box-shadow: 0 8px 28px rgba(54, 73, 61, 0.045);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(54, 73, 61, 0.09);
+}
+
+/* 文章标题更易阅读 */
+.card h2 {
+  line-height: 1.45;
+  letter-spacing: -0.3px;
+}
+
+.card p {
+  line-height: 1.8;
+}
+
+/* 图片圆角统一 */
+.card img {
+  border-radius: 14px;
+}
+
+/* 页脚留白 */
+footer {
+  margin-top: 56px;
+  padding-top: 28px;
+  padding-bottom: 36px;
+}
+
+/* 手机屏幕上适当缩小间距 */
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 32px;
+    padding-bottom: 26px;
+  }
+
+  .welcome {
+    padding-top: 8px;
+    padding-bottom: 20px;
+  }
+
+  .card {
+    border-radius: 18px;
+  }
+}
